@@ -15,7 +15,6 @@ class FurnitureItem {
 
 class Room {
     constructor() {
-
         this.width = 4;
         this.depth = 4;
         this.height = 4;
@@ -32,20 +31,32 @@ class Room {
 class RenderFrame {
     constructor (direction, [measurement, unit], room,  ) {
         this.direction = direction;
-        
+        this.contactPoints = {};
+
         switch (direction){
             case "Top":
+                this.x = room.width;
+                this.y = room.depth;
                 break;
             case "North":
+                this.x = room.width;
+                this.y = room.height;
                 break;
             case "East":
+                this.x = room.depth;
+                this.y = room.height;
                 break;
             case "South":
+                this.x = room.width;
+                this.y = room.height;
                 break;
             case "West":
+                this.x = room.depth;
+                this.y = room.height;
                 break;
         }
-
-        
     }
+
+    move () {}
+    rescale () {}
 }
