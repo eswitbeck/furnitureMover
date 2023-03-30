@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Room Planner</title>
+        <script src="classes.js"></script>
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <div id="rendering"></div>
+            <div id="scaling">
+                <div>
+                    <h3 id="scale-header">Scale</h3>
+                    <div id="scale">
+                        <p>1cm : </p>
+                        <input type="text" id="scaleInput">
+                        <p class="unit">m</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="furniture-header">Furniture Size</h3>
+                    <div id="scale-width">
+                        <p>width:</p>
+                        <input type="text" id="widthInput">
+                        <p class="unit">m</p>
+                    </div>
+                    <div id="scale-depth">
+                        <p>depth:</p>
+                        <input type="text" id="depthInput">
+                        <p class="unit">m</p>
+                    </div>
+                    <div id="scale-height">
+                        <p>height:</p>
+                        <input type="text" id="heightInput">
+                        <p class="unit">m</p>
+                    </div>
+                </div>
+                <button id="add">Add</button>
+            </div>
+        </main>
+        <script src="main.js"></script>
+    </body>
+</html>
