@@ -1,0 +1,33 @@
+main {
+    display: grid;
+    grid-template-areas: "a a b";
+    margin: 50px;
+}
+
+#rendering {
+    grid-area: a;
+    display: grid;
+    grid-template-areas:
+                        "a North a"
+                        "West Top East"
+                        "a South a";
+}
+
+.renderFrame {
+    width: 200px;
+    height: 200px;
+    border: solid 1px black;
+}
+
+#scaling {
+    grid-area: b;
+}
+
+#scaling div, #rendering div {
+    display: flex;
+    flex-direction: column;
+}
+
+#scaling div > *, #rendering div > * {
+    display: inline-block;
+}

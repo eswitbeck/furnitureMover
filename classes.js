@@ -29,10 +29,12 @@ class Room {
 }
 
 class RenderFrame {
-    constructor (direction, [measurement, unit], room,  ) {
+    constructor (document, renderingDiv, direction, [measurement, unit], room) {
         this.direction = direction;
         this.contactPoints = {};
-
+        const e = document.createElement ('div');
+        e.setAttribute ('class', 'renderFrame');
+        renderingDiv.appendChild (e);
         switch (direction){
             case "Top":
                 this.x = room.width;
@@ -55,6 +57,7 @@ class RenderFrame {
                 this.y = room.height;
                 break;
         }
+        e.setAttribute('grid-area', direction);
     }
 
     move () {}
