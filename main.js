@@ -2,15 +2,16 @@
 document.addEventListener('DOMContentLoaded', main);
 
 
-function populateRenderingFrames () {
+function populateRenderingFrames (measurement, room) {
     for (direction of ["North", "South", "East", "West", "Top"]) {
         const renderingDiv = document.getElementById('rendering');
-        const measurement = ["4", 'm'];
-        const room = new Room ();
         new RenderFrame (document, renderingDiv, direction, measurement, room);
     }
 }
 
 function main () {
-    populateRenderingFrames ();
+    const state = { selection: null };
+    const measurement = ["4", 'm'];
+    const room = new Room();
+    populateRenderingFrames(measure, room);
 }
