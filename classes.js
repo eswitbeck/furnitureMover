@@ -57,9 +57,17 @@ class RenderFrame {
                 this.y = room.height;
                 break;
         }
-        e.setAttribute('grid-area', direction);
+        e.style['grid-area'] = direction;
+        const title = document.createElement ('h5');
+        title.innerText = direction;
+        e.appendChild (title);
+        const renderArea = document.createElement ('div');
+        e.appendChild (renderArea);
+        // add eventListener here
     }
 
-    move () {}
+    move () {
+
+    }
     rescale () {}
 }

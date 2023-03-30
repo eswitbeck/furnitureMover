@@ -1,33 +1,59 @@
+:root {
+    --frameDimension: 200px;
+}
+
 main {
     display: grid;
     grid-template-areas: "a a b";
     margin: 50px;
+    justify-items: center;
 }
 
 #rendering {
+    width: calc(4 * var(--frameDimension));
     grid-area: a;
     display: grid;
     grid-template-areas:
-                        "a North a"
+                        ". North ."
                         "West Top East"
-                        "a South a";
+                        ". South .";
+    align-items: center;
+    justify-items: center;
 }
 
 .renderFrame {
-    width: 200px;
-    height: 200px;
+    width: var(--frameDimension);
+    height: var(--frameDimension);
+    margin: 25px;
     border: solid 1px black;
+}
+
+.renderFrame div {
+    border: solid 1px black;
+    position: relative;
+    width: 100%;
+}
+
+.renderFrame h5 {
+    margin: 5px;
+    text-align: center;
+    display: block;
+}
+
+#rendering div div {
+    /* TODO FIX THIS */
+    height: calc(var(--frameDimension) * .8)
 }
 
 #scaling {
     grid-area: b;
 }
 
-#scaling div, #rendering div {
+#scaling div {
     display: flex;
     flex-direction: column;
 }
 
-#scaling div > *, #rendering div > * {
+main > div > div > *, main > div > div > * {
     display: inline-block;
 }
