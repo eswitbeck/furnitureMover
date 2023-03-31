@@ -32,11 +32,9 @@ class FurnitureItem {
     }   
 
     add (direction) {
-        if (!this.frames.get (direction)) {
-            this.frames.set (direction, renderFrame);
-        }
-        for ([frame, lookupTableAddress]) {
-            frame[lookupTableAddress].update();
+        if (this.frames.get (direction)) {
+            this.frames.set(direction, renderFrame);
+           // in process of handling adds 
         }
 
     }
@@ -88,11 +86,8 @@ class RenderFrame {
             : this.openAddressStack.pop ();
         // TODO address semantic overlap renderFrame v renderArea
         const item = new RenderedFurnitureItem (document, this, lookupTableAddress, furnitureItem, state);
-        furnitureItem.add (direction);
         renderArea.appendChild (item);
-    }
-    requestRender (x, y, xReference, yReference) {
-
+        furnitureItem.add (direction);
     }
     remove () {
 
