@@ -27,16 +27,20 @@ class FurnitureItem {
         this.Up = 0; // Up = height
 
         this.frames = new Map ();
-        this.add (direction)
-        
     }   
 
-    add (direction) {
-        if (this.frames.get (direction)) {
-            this.frames.set(direction, renderFrame);
-           // in process of handling adds 
+    add(direction) {
+        if (!this.frames.get('Top')) { // always appends to Top first
+            this.frames.set('Top', renderFrame);
         }
-
+        if (!this.frames.get(direction)) {
+            this.frames.set(direction, renderFrame);
+        }
+        for (frame of document.querySelectorAll('.renderingFrame')) {
+            if (frame.isTouching(this)) {
+                frame.add(frame.direction);
+            }
+        }
     }
 }
 
@@ -78,6 +82,7 @@ class RenderFrame {
         e.appendChild (title);
         const renderArea = document.createElement ('div');
         e.appendChild (renderArea);
+        this.add (direction)
     }
 
     add (direction) {
@@ -92,6 +97,22 @@ class RenderFrame {
     remove () {
 
     }
+    isTouching (furnitureItem) {
+        switch (this.direction) {
+            case "West":
+                return furnitureItem.position.x === 0;
+            case "North":
+                return furnitureItem.position.y === room.depth;
+            case "East":
+                return furnitureItem.position.x + this.width === room.width;
+            case "South":
+                return furnitureItem.position.y - this.depth === 0;
+            case "Top":
+                return furnitureItem.position.z === 0;
+        }
+    }
+
+    }
     move () {
 
     }
@@ -101,10 +122,14 @@ class RenderFrame {
 class RenderedFurnitureItem {
     constructor (document, renderFrame, lookupTableAddress, FurnitureItem, state) { 
         // do some calc
-        this.x = null; // for top left corner
+        this.x = null; // for top left corner positioning
+        // set left
         this.y = null;
+        // set top
         this.height = null;
+        // set height
         this.width = null;
+        // set width
         const item = document.createElement('div');
         item.setAttribute ('class', 'renderedFurnitureItem');
         renderFrame.appendChild (item);
