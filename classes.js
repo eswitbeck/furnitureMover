@@ -14,7 +14,7 @@ class Room {
 }
 
 class FurnitureItem {
-    constructor (height, width, depth, [measurement, unit], room) {
+    constructor (height, width, depth, [measurement, unit], room, state) {
         this.ratio = 1 / measurement;
         
         this.width = width * ratio;
@@ -36,16 +36,16 @@ class FurnitureItem {
         if (!this.frames.get(direction)) {
             this.frames.set(direction, renderFrame);
         }
-        for (frame of document.querySelectorAll('.renderingFrame')) {
+        for (frame of document.getElementsByClassName ('.renderingFrame')) {
             if (frame.isTouching(this)) {
-                frame.add(frame.direction);
+                frame.add(frame.direction, this, state);
             }
         }
     }
 }
 
 class RenderFrame {
-    constructor (document, renderingDiv, direction, furnitureItem,
+    constructor (document, renderingDiv, direction,
                  [measurement, unit], room) {
         this.direction = direction;
         this.touchingFurnitureItems = {};
@@ -80,18 +80,17 @@ class RenderFrame {
         const title = document.createElement ('h5');
         title.innerText = direction;
         e.appendChild (title);
-        const renderArea = document.createElement ('div');
-        e.appendChild (renderArea);
-        this.add (direction)
+        this.renderArea = document.createElement ('div');
+        e.appendChild (this.renderArea);
     }
 
-    add (direction) {
+    add (direction, furnitureItem, state) { // TODO conditional null furnitureItem?
         const lookupTableAddress = this.openAddressStack.length === 0 
             ? this.lookupIndex
             : this.openAddressStack.pop ();
         // TODO address semantic overlap renderFrame v renderArea
         const item = new RenderedFurnitureItem (document, this, lookupTableAddress, furnitureItem, state);
-        renderArea.appendChild (item);
+        this.renderArea.appendChild (item);
         furnitureItem.add (direction);
     }
     remove () {
@@ -99,6 +98,7 @@ class RenderFrame {
     }
     isTouching (furnitureItem) {
         switch (this.direction) {
+            // TODO broken: position not a variable
             case "West":
                 return furnitureItem.position.x === 0;
             case "North":
@@ -112,7 +112,6 @@ class RenderFrame {
         }
     }
 
-    }
     move () {
 
     }
@@ -120,8 +119,8 @@ class RenderFrame {
 }
 
 class RenderedFurnitureItem {
-    constructor (document, renderFrame, lookupTableAddress, FurnitureItem, state) { 
-        // do some calc
+    constructor (document, renderFrame, lookupTableAddress, furnitureItem, state) { 
+        // TODO do some calc
         this.x = null; // for top left corner positioning
         // set left
         this.y = null;
@@ -132,10 +131,10 @@ class RenderedFurnitureItem {
         // set width
         const item = document.createElement('div');
         item.setAttribute ('class', 'renderedFurnitureItem');
-        renderFrame.appendChild (item);
+        renderFrame.renderArea.appendChild (item);
     }
 
     select () {
-        FurnitureItem.select (state);
+        furnitureItem.select (state);
     }
 }

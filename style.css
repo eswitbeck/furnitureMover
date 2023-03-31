@@ -49,11 +49,11 @@ main {
     grid-area: b;
 }
 
-#scaling div {
+#scaling > div {
     display: flex;
     flex-direction: column;
 }
 
 main > div > div > *, main > div > div > * {
-    display: inline-block;
+    display: flex;
 }
