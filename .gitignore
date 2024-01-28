@@ -1,1 +1,3 @@
-excalidraw_20230330.excalidraw
+*.excalidraw
+/node_modules/
+/public/
